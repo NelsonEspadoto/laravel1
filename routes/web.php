@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ConfigController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,25 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'welcome');
+Route::view('/', 'welcome');
 
-Route::view('/teste', 'teste');
-
-Route::get('/{slug}', function ($slug) {
-    return view('teste');
+Route::prefix('/config')->group(function(){
+    
+    Route::get('/', [ConfigController::class, 'index']);
+    Route::get('info', [ConfigController::class, 'info']);
+    Route::get('permissoes', [ConfigController::class, 'permissoes']);
 });
 
-Route::get('noticia/{slug}/comentario/{id}', function($slug, $id) {
-    //echo "Mostrando o comentário $slug da noticia $id";
-    echo "Mostrando o comentário ".$id." da noticia ".$slug;
-});
-
-Route::get('/user/{id}', function ($id) {
-    echo "Mostrando ID Usuário: ".$id;
-//})->where("id", '[0-9]+');
-});
-
-Route::get('/user/{name}', function ($name) {
-    echo "Mostrando Nome Usuário: ".$name;
-//})->where("name", '[a-z,A-Z]+');
+Route::fallback(function(){
+    return view('404');
 });
