@@ -8,13 +8,14 @@ class ConfigController extends Controller
 {
     public function index(Request $request)
     {
-        $data = $request->all();
-        $dados = $request->input('nome');
-
-        echo 'Seja Bem Vindo '.$data['nome'];
-        print_r($dados);
-
-        return view('config');
+        $nome = $request->input('nome', 'Visitante');
+        $idade = $request->input('idade');
+        $data = [
+            'nome' => $nome, 
+            'idade' => $idade
+        ];
+        
+        return view('admin.config', $data);
     }
 
     public function info()
