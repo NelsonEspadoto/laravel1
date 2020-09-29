@@ -19,6 +19,7 @@ Route::view('/', 'welcome');
 Route::prefix('/config')->group(function(){
     
     Route::get('/', [ConfigController::class, 'index']);
+    Route::post('/', [ConfigController::class, 'index']);
     Route::get('info', [ConfigController::class, 'info']);
     Route::get('permissoes', [ConfigController::class, 'permissoes']);
 });
