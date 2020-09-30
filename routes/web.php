@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ConfigController;
+use App\Http\Controllers\TarefasController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +16,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'welcome');
+
+Route::prefix('/tarefas')->group(function(){
+    Route::get('/', [TarefasController::class, 'list'])->name('tarefas.list');
+
+    Route::get("add", [TarefasController::class, 'add'])->name('tarefas.add');
+    Route::post("add", [TarefasController::class, 'addAction']);
+
+    Route::get('edit/{id}', [TarefasController::class, 'edit'])->name('tarefas.edit');
+    Route::post('edit/{id}', [TarefasController::class, 'editAction']);
+    
+    Route::get('delete/{id}', [TarefasController::class, 'del'])->name('tarefas.del');
+
+    Route::get('marcar/{id}', [TarefasController::class, 'done'])->name('tarefas.done');
+});
 
 Route::prefix('/config')->group(function(){
     
